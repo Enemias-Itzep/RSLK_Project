@@ -274,6 +274,8 @@ void HostThread(void)
         }
         c = temp;
     }
+    P2->DIR |= BIT0; //Makes button 0 an output
+    P2->OUT |= BIT0; //Turns it on
 
     //Sends acknowledgment
     JoyStickData.client = c;
@@ -301,6 +303,8 @@ void HostThread(void)
         }
         c = temp;
     }
+    P2->DIR |= BIT2; //Makes button 0 an output
+    P2->OUT |= BIT2; //Turns it on
 
     JoyStickData.client = c;
 
@@ -368,6 +372,9 @@ void ClientThread(void)
         }
         JoyStickData = temp;
     }
+
+    P2->DIR |= BIT0; //Makes button 0 an output
+    P2->OUT |= BIT0; //Turns it on
 
     c = JoyStickData.client;
     c.joined = true;
