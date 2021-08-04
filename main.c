@@ -72,9 +72,9 @@ void main(void)
                 uint16_t size = 4;
 
                 uint16_t k = 0;
-                for (uint8_t j = yOffset; j < 17*size + yOffset; j+=size)
+                for (uint16_t j = yOffset; j < 17*size + yOffset; j+=size)
                 {
-                    for (uint8_t i = xOffset; i < 40*size + xOffset; i+=size)
+                    for (uint16_t i = xOffset; i < 40*size + xOffset; i+=size)
                     {
                         //2 times size
                         LCD_SetPoint(i, j, (image[k]<<8) | image[k+1]);
