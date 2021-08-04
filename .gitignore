@@ -1,0 +1,11 @@
+
+targetConfigs/readme.txt
+msp432p401r.cmd
+.settings/org.eclipse.cdt.codan.core.prefs
+.ccsproject
+.project
+.cproject
+startup_msp432p401r_ccs.c
+.settings/org.eclipse.cdt.debug.core.prefs
+targetConfigs/MSP432P401R.ccxml
+system_msp432p401r.c
