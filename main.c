@@ -60,7 +60,7 @@ void main(void)
         {
             tap1 = false;
             DelayMs(50); //debounce the tap
-            if((P1->IN & BIT1) >> 1)
+            if(!((P1->IN & BIT1) >> 1))
             {
                 P2->DIR |= BIT1; //Makes button 0 an output
                 P2->OUT |= BIT1; //Turns it on
@@ -108,7 +108,7 @@ void main(void)
                 G8RTOS_AddThread(HostThread, 125, "Host Thread");
                 break;
             }
-            else if ((P1->IN & BIT4) >> 4)
+            else if (!((P1->IN & BIT4) >> 4))
             {
                 P1->DIR |= BIT0; //Makes button 0 an output
                 P1->OUT |= BIT0; //Turns it on
