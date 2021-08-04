@@ -283,19 +283,21 @@ void HostThread(void)
     //Confirm that client joined
     while(!c.joined)
     {
-        //Sends Acknowledgement
-        SendData((uint8_t*)&JoyStickData, JoyStickData.client.IP_address, sizeof(JoyStickData));
+
 
         ClientData_t temp;
         int32_t retVal;
         while(true)
         {
+            //Sends Acknowledgement
+            SendData((uint8_t*)&JoyStickData, JoyStickData.client.IP_address, sizeof(JoyStickData));
             DelayMs(5);
             retVal = ReceiveData((uint8_t*)&temp, sizeof(temp));
             if(retVal >= 0)
             {
                 break;
             }
+            DelayMs(5);
         }
         c = temp;
     }

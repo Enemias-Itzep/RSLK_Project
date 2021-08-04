@@ -114,7 +114,7 @@ void bumper_Check(void)
             }
         }
 
-        OS_Sleep(25);
+        OS_Sleep(100);
     }
 }
 
