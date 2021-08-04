@@ -608,7 +608,7 @@ void LCD_Init(bool usingTP)
     LCD_WriteReg(DISPLAY_CONTROL_1, 0x0133); /* 262K color and display ON */
     Delay(50); /* delay 50 ms */
 
-    LCD_Clear(LCD_BLACK);
+    LCD_Clear(LCD_WHITE);
 }
 
 /*******************************************************************************

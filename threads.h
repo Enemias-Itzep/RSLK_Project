@@ -16,7 +16,6 @@
 //Author: Ryan Roth
 void InitRSLK(void);
 
-/*********** Init Functions ***********/
 
 /*********** Structure Definitions ***********/
 
@@ -28,6 +27,13 @@ typedef struct
     bool ready;             //Is ready to play
     bool joined;            //Joined the game
     bool acknowledge;       //Acknowledge to be sent from Host
+    bool newBump;
+    bool bump0;
+    bool bump1;
+    bool bump2;
+    bool bump3;
+    bool bump4;
+    bool bump5;
 } ClientData_t;
 
 typedef struct
@@ -37,6 +43,11 @@ typedef struct
     int32_t Xavg;         //Left Right
     int32_t Yavg;         //Forward Backward
 } JoyStickData_t;
+
+
+/*********** JoyStick Data ***********/
+JoyStickData_t JoyStickData;
+ClientData_t c;
 
 
 //********************************************************************************************?//

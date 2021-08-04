@@ -15,16 +15,16 @@
 #include "motor.h"
 #include <cc3100_usage.h>
 #include "demo_sysctl.h"
+#include "bumpers.h"
 
 /*********** Semaphores ***********/
 semaphore_t WIFIMutex;
 semaphore_t s_JoyStick;
+semaphore_t s_Bumper;
 
 /*********** Semaphores ***********/
 
-/*********** JoyStick Data ***********/
-JoyStickData_t JoyStickData;
-ClientData_t c;
+
 
 //Variables that will hold coordinates
 int16_t x, y;
@@ -100,8 +100,6 @@ void JoystickRead_th(void) {
         //Gets Joystick coordinates
         GetJoystickCoordinates(&x, &y);
 
-        //x *= -1;
-
         G8RTOS_WaitSemaphore(&s_JoyStick);
 
         //Calculates decayed average value for coordinate X and Y
@@ -135,6 +133,35 @@ void JoystickSend_th(void) {
         G8RTOS_SignalSemaphore(&s_JoyStick);
 
         OS_Sleep(5);
+    }
+}
+
+void BumpersSend_th(void)
+{
+    while(1)
+    {
+        G8RTOS_WaitSemaphore(&s_Bumper);
+
+        if(c.newBump)
+        {
+            sendClientPacket();
+            c.newBump = false;
+        }
+        G8RTOS_SignalSemaphore(&s_Bumper);
+
+        OS_Sleep(20);
+    }
+}
+
+void BumpersReceive_th(void)
+{
+    while(1)
+    {
+        G8RTOS_WaitSemaphore(&s_Bumper);
+        emptyClientPacket();
+        G8RTOS_SignalSemaphore(&s_Bumper);
+
+        OS_Sleep(10);
     }
 }
 
@@ -183,7 +210,6 @@ void Motor_th(void) {
 //         if data is received, set new data flag to 1.
 void JoystickRcv_th(void) {
     int Status;
-    uint16_t BUFFER_SIZE = sizeof(JoyStickData_t);
     while(1) {
         //continually receive data until valid data has been read (greater than 0)
         //cycle the semaphore and sleep to prevent deadlock like in the host's function
@@ -199,8 +225,6 @@ void JoystickRcv_th(void) {
                OS_Sleep(2);
           }
     }
-
-    //OS_Sleep(6);
 }
 
 /*
@@ -221,19 +245,13 @@ void TimerIntRight(void) {
 }
 */
 
-/*********** Robot Thread Definitions ***********/
-
-
-
-
-
-
 
 void HostThread(void)
 {
     //initializes semaphores:
     G8RTOS_InitSemaphore(&WIFIMutex, 1);
     G8RTOS_InitSemaphore(&s_JoyStick, 1);
+    G8RTOS_InitSemaphore(&s_Bumper, 1);
 
     //Initializes to default state
     JoyStickData.Xavg = 0;
@@ -288,6 +306,7 @@ void HostThread(void)
     //Adds threads needed for the game
     G8RTOS_AddThread(JoystickSend_th, 200, "SndDtaClient");
     G8RTOS_AddThread(JoystickRead_th, 200, "JoyStickRead");
+    G8RTOS_AddThread(BumpersReceive_th, 200, "Bump_Rcv");
     //G8RTOS_AddThread(ReceiveDataFromClient, 200, "RecDataFromClient");
     G8RTOS_AddThread(Idle, 255, "Idle");
 
@@ -304,12 +323,20 @@ void ClientThread(void)
     //Initializes Semaphores
     G8RTOS_InitSemaphore(&WIFIMutex, 1);
     G8RTOS_InitSemaphore(&s_JoyStick, 1);
+    G8RTOS_InitSemaphore(&s_Bumper, 1);
 
     //Fills packet with client info
     c.IP_address = getLocalIP();
     c.ready = true;
     c.joined = false;
     c.acknowledge = false;
+    c.bump0 = false;
+    c.bump1 = false;
+    c.bump2 = false;
+    c.bump3 = false;
+    c.bump4 = false;
+    c.bump5 = false;
+    c.newBump = false;
 
     //Sends player info to host
     sendClientPacket();
@@ -347,67 +374,15 @@ void ClientThread(void)
     sendClientPacket();
 
     //Adds threads needed for the game
-    //G8RTOS_AddThread(SendDataToHost, 200, "SndDataToHost");
+    G8RTOS_AddThread(BumpersSend_th, 2, "Bump_Send");
     G8RTOS_AddThread(JoystickRcv_th, 2, "Joy_Rcv");
+    G8RTOS_AddThread(bumper_Check, 2, "Bumpers");
     G8RTOS_AddThread(Motor_th, 2, "Motor_th");
     G8RTOS_AddThread(Idle, 255, "Idle");
 
     //Kill this thread
     G8RTOS_KillSelf();
     SCB->ICSR |= (1<<28); //set the pendsv bit to switch tasks
-}
-
-/*
- * Thread that receives game state packets from host
- */
-void ReceiveDataFromHost(void)
-{
-    while(true)
-    {
-        emptyHostPacket();
-        OS_Sleep(5);
-    }
-}
-
-/*
- * Thread that sends UDP packets to host
- */
-//void SendDataToHost(void)
-//{
-//    while(true)
-//    {
-//        sendClientPacket();
-//        OS_Sleep(2);
-//    }
-//}
-
-/*
- * Thread that sends game state to client
- */
-void SendDataToClient()
-{
-    while(true)
-    {
-        //Send packet
-        sendHostPacket();
-
-        //Sleep
-        OS_Sleep(5);
-    }
-}
-
-/*
- * Thread that receives UDP packets from client
- */
-void ReceiveDataFromClient()
-{
-    while(true)
-    {
-        emptyClientPacket();
-
-        //Sleeping for 2ms
-        //OS_Sleep(2);
-    }
 }
 
 /*
