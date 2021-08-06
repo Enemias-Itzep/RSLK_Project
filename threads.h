@@ -16,10 +16,9 @@
 //Author: Ryan Roth
 void InitRSLK(void);
 
+/*********** Init Functions ***********/
 
 /*********** Structure Definitions ***********/
-
-
 
 typedef struct
 {
@@ -45,11 +44,6 @@ typedef struct
 } JoyStickData_t;
 
 
-/*********** JoyStick Data ***********/
-JoyStickData_t JoyStickData;
-ClientData_t c;
-
-
 //********************************************************************************************?//
 /*********** Controller Thread Declarations ***********/
 
@@ -65,79 +59,65 @@ void JoyStickRead_th(void);
 //         Upon reaching the end of the thread, clear the new joystick value flag
 void JoyStickSend_th(void);
 
-//CONTROLLER INITIALIZATION THREAD, BEGIN COMMUNICATION
-
-//Name: JoyStickInit
+//Name: HostThread
 //Type: Initial controller thread, launch with it in the scheduler and kill self on completion
 //Purpose: Initialize joystick and joystick data values and connect to the robot via wifi. Schedule normal controller threads then kill self
-void ControllerInit(void);
+void HostThread(void);
+
+//Name: LCD_th
+//Type: normal controller thread
+//Purpose: Uses the bump sensor data from the robot to draw or erase the red rectangles at each position that indicate a collision
+//         sleep for about 50ms
+void LCD_th(void);
+
+//Name: BumperRecv_th
+//Type: normal controller thread
+//Purpose: Receives packets from the robot which contain information on the bumpers
+void BumperRecv_th(void);
+
+/*
+ * Reads Joystick and saves data
+ */
+/*
+void ReadJoystick(void);
+
+void SendDataToClient(void);
+*/
 
 /*********** Controller Thread Declarations ***********/
 
 /*********** Robot Thread Declarations ***********/
 
 //Name: Motor_th
-//Type: Normal Thread
+//Type: Normal Robot Thread
 //Purpose: checks for new joystick data, run the motor controller if there is new data. Otherwise, sleep. Set new data flag to 0 and sleep after running control routine
 //Author: Ryan Roth
 void Motor_th(void);
 
 //Name: JoystickRcv_th
-//Type: Normal Thread
+//Type: Normal Robot Thread
 //Purpose: tries to receive data from the joystick device. If nothing is received, sleep for 2ms.
 //         if data is received, set new data flag to 1.
 void JoystickRcv_th(void);
 
-/*
-//Name: TimerIntLeft
-//Type: Aperiodic interrupt thread tied to timerA
-//Purpose: Toggles the left motor's PWM pin.
-void TimerIntLeft(void);
-
-//Name: TimerIntRight
-//Type: Aperiodic interrupt thread tied to timerA
-//Purpose: Toggles the right motor's PWM pin.
-void TimerIntRight(void);
-*/
-
-//HAVE THREADS THAT INITIALIZE THE CONNECTION AND GET KILLED FROM THE SCHEDULER LIKE LAB 5
-//Name: RobotInit
+//Name: ClientThread
 //Type: Robot Initialization Thread, run once and kill thread
 //Purpose: Initialize motor and timers and connect to the controller via wifi. Schedule normal robot threads then kill self.
-void RobotInit(void);
-
-
-
-/*
- * Initializes Host
- */
-void HostThread(void);
-
-/*
- * Initializes Client
- */
 void ClientThread(void);
+
+//Name: BumperRead_th
+//Type: Normal Robot Thread
+//Purpose: Read new values from the bumpers on the front of the robot. Sleep for about 40ms.
+void BumperRead_th(void);
+
+//Name: BumperSend_th
+//Type: Normal Robot Thread
+//Purpose: Send packet containing bumper values to the controller to display on the LCD
+void BumperSend_th(void);
 
 /*
  * Idle thread that runs when others do not
  */
-void Idle(void);
-
-/*
- * Reads Joystick and saves data
- */
-void ReadJoystick(void);
-
-
-void ReceiveDataFromHost(void);
-
-
-void SendDataToHost(void);
-
-void SendDataToClient(void);
-
-void ReceiveDataFromClient(void);
-
 void Idle(void);
 
 #endif /* THREADS_H_ */

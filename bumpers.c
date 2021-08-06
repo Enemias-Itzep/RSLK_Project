@@ -12,7 +12,7 @@
 
 volatile bool tap4 = false;
 
-void PORT4_IRQHandler(void)
+void PORT4_Handler(void)
 {
     //Clear IFG flag
     P4->IFG &= ~BIT0;
@@ -78,43 +78,45 @@ void init_Bumpers(void)
     P4->IE |= BIT7;   //Enables interrupt for Button 0
 }
 
-void bumper_Check(void)
+void bumper_Check(ClientData_t* c)
 {
-    while(true)
+    if(tap4)
     {
-        if(tap4)
+        tap4 = false;
+
+        c->newBump = true;
+
+        c->bump0 = false;
+        c->bump1 = false;
+        c->bump2 = false;
+        c->bump3 = false;
+        c->bump4 = false;
+        c->bump5 = false;
+
+        if (!((P4->IN & BIT0) >> 0))
         {
-            tap4 = false;
-
-            c.newBump = true;
-
-            if (!((P4->IN & BIT0) >> 0))
-            {
-                c.bump0 = true;
-            }
-            if (!((P4->IN & BIT2) >> 2))
-            {
-                c.bump1 = true;
-            }
-            if (!((P4->IN & BIT3) >> 3))
-            {
-                c.bump2 = true;
-            }
-            if (!((P4->IN & BIT5) >> 5))
-            {
-                c.bump3 = true;
-            }
-            if (!((P4->IN & BIT6) >> 6))
-            {
-                c.bump4 = true;
-            }
-            if (!((P4->IN & BIT7) >> 7))
-            {
-                c.bump5 = true;
-            }
+            c->bump0 = true;
         }
-
-        OS_Sleep(100);
+        if (!((P4->IN & BIT2) >> 2))
+        {
+            c->bump1 = true;
+        }
+        if (!((P4->IN & BIT3) >> 3))
+        {
+            c->bump2 = true;
+        }
+        if (!((P4->IN & BIT5) >> 5))
+        {
+            c->bump3 = true;
+        }
+        if (!((P4->IN & BIT6) >> 6))
+        {
+            c->bump4 = true;
+        }
+        if (!((P4->IN & BIT7) >> 7))
+        {
+            c->bump5 = true;
+        }
     }
 }
 

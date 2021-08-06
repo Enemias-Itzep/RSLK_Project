@@ -6,7 +6,6 @@
 #include "demo_sysctl.h"
 #include "threads.h"
 #include "motor.h"
-#include "image.h"
 #include "bumpers.h"
 
 #define OFF 0x00
@@ -22,8 +21,6 @@ void PORT1_IRQHandler(void)
 
     tap1 = true;
 }
-
-
 
 /**
  * main.c
@@ -52,8 +49,6 @@ void main(void)
     P1->IFG &= ~BIT4; //Clears interrupt flag for button 0
     P1->IE |= BIT4;   //Enables interrupt for Button 0
 
-    tap1 = false;
-
     while(true)
     {
         if (tap1)
@@ -66,44 +61,8 @@ void main(void)
                 P2->OUT |= BIT1; //Turns it on
 
                 LCD_Init(false);
-
-                uint16_t xOffset = 80;
-                uint16_t yOffset = 172;
-                uint16_t size = 4;
-
-                uint16_t k = 0;
-                for (uint16_t j = yOffset; j < 17*size + yOffset; j+=size)
-                {
-                    for (uint16_t i = xOffset; i < 40*size + xOffset; i+=size)
-                    {
-                        //2 times size
-                        LCD_SetPoint(i, j, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+1, j, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i, j+1, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+1, j+1, (image[k]<<8) | image[k+1]);
-
-                        //3 times size
-                        LCD_SetPoint(i+2, j, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i, j+2, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+2, j+2, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+1, j+2, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+2, j+1, (image[k]<<8) | image[k+1]);
-
-
-                        //4 times size
-                        LCD_SetPoint(i+3, j, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i, j+3, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+3, j+3, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+1, j+3, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+3, j+1, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+3, j+2, (image[k]<<8) | image[k+1]);
-                        LCD_SetPoint(i+2, j+3, (image[k]<<8) | image[k+1]);
-
-
-                        k+=2;
-                    }
-                }
-
+                LCD_Text(20, 20, "Welcome to GatorRC!", LCD_ORANGE);
+                LCD_Text(20, 60, "Connecting to Robot...", LCD_BLUE);
                 initCC3100(Host);
                 G8RTOS_AddThread(HostThread, 125, "Host Thread");
                 break;
