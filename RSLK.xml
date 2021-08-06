@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdtprojectproperties>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+<language name="Assembly Source File">
+<includepath>D:/ti/ccs1031/ccs/ccs_base/arm/include</includepath>
+<includepath workspace_path="true">/${ProjName}/BoardSupportPackage/DriverLib</includepath>
+<includepath workspace_path="true">/${ProjName}/BoardSupportPackage/inc</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/board</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/cc3100_usage</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/simplelink/include</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/simplelink/source</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/SL_Common</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/spi_cc3100</includepath>
+<includepath workspace_path="true">/${ProjName}/G8RTOS</includepath>
+<includepath>D:/ti/ccs1031/ccs/ccs_base/arm/include/CMSIS</includepath>
+<includepath>C:/Users/enemi/Documents/EEL4745C/RSLK_Project/RSLK_Project</includepath>
+<includepath>D:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include</includepath>
+
+</language>
+<language name="Assembly Source File">
+<includepath>D:/ti/ccs1031/ccs/ccs_base/arm/include</includepath>
+<includepath workspace_path="true">/${ProjName}/BoardSupportPackage/DriverLib</includepath>
+<includepath workspace_path="true">/${ProjName}/BoardSupportPackage/inc</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/board</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/cc3100_usage</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/simplelink/include</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/simplelink/source</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/SL_Common</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/spi_cc3100</includepath>
+<includepath workspace_path="true">/${ProjName}/G8RTOS</includepath>
+<includepath>D:/ti/ccs1031/ccs/ccs_base/arm/include/CMSIS</includepath>
+<includepath>C:/Users/enemi/Documents/EEL4745C/RSLK_Project/RSLK_Project</includepath>
+<includepath>D:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include</includepath>
+
+</language>
+<language name="C++ Source File">
+<includepath>D:/ti/ccs1031/ccs/ccs_base/arm/include</includepath>
+<includepath workspace_path="true">/${ProjName}/BoardSupportPackage/DriverLib</includepath>
+<includepath workspace_path="true">/${ProjName}/BoardSupportPackage/inc</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/board</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/cc3100_usage</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/simplelink/include</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/simplelink/source</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/SL_Common</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/spi_cc3100</includepath>
+<includepath workspace_path="true">/${ProjName}/G8RTOS</includepath>
+<includepath>D:/ti/ccs1031/ccs/ccs_base/arm/include/CMSIS</includepath>
+<includepath>C:/Users/enemi/Documents/EEL4745C/RSLK_Project/RSLK_Project</includepath>
+<includepath>D:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include</includepath>
+
+</language>
+<language name="C Source File">
+<includepath>D:/ti/ccs1031/ccs/ccs_base/arm/include</includepath>
+<includepath workspace_path="true">/${ProjName}/BoardSupportPackage/DriverLib</includepath>
+<includepath workspace_path="true">/${ProjName}/BoardSupportPackage/inc</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/board</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/cc3100_usage</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/simplelink/include</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/simplelink/source</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/SL_Common</includepath>
+<includepath workspace_path="true">/${ProjName}/CC3100SupportPackage/spi_cc3100</includepath>
+<includepath workspace_path="true">/${ProjName}/G8RTOS</includepath>
+<includepath>D:/ti/ccs1031/ccs/ccs_base/arm/include/CMSIS</includepath>
+<includepath>C:/Users/enemi/Documents/EEL4745C/RSLK_Project/RSLK_Project</includepath>
+<includepath>D:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include</includepath>
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+</section>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+<language name="Assembly Source File">
+<macro>
+<name>__MSP432P401R__</name><value/>
+</macro>
+<macro>
+<name>ccs</name><value/>
+</macro>
+
+</language>
+<language name="Assembly Source File">
+<macro>
+<name>__MSP432P401R__</name><value/>
+</macro>
+<macro>
+<name>ccs</name><value/>
+</macro>
+
+</language>
+<language name="C++ Source File">
+<macro>
+<name>__MSP432P401R__</name><value/>
+</macro>
+<macro>
+<name>ccs</name><value/>
+</macro>
+
+</language>
+<language name="C Source File">
+<macro>
+<name>__MSP432P401R__</name><value/>
+</macro>
+<macro>
+<name>ccs</name><value/>
+</macro>
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+</section>
+</cdtprojectproperties>
